@@ -36,12 +36,21 @@ def get_countrycode(countrycode, country):
 org_countrycode()
 cidade = input("Insira o nome da cidade que deseja saber o clima: ")
 pais = input("Insira o pais dessa cidade: ")
-print(get_countrycode(countrycode, pais))
+c_code = get_countrycode(countrycode, pais)
 
 
-r = requests.get("http://api.openweathermap.org/data/2.5/forecast?id=524901&appid={b5f546a581ec7e5675a954a64b4e5ddb}")
+response = requests.get(f"http://api.openweathermap.org/geo/1.0/direct?q={cidade},{c_code}&limit=1&appid=b5f546a581ec7e5675a954a64b4e5ddb").json()
 
-data = r.json()
+if isinstance(response, list) and len(response) > 0:
+    try:
+        lat_cidade = response[0]["lat"]
+        lon_cidade = response[0]["lon"]
+    except Exception as error:
+        lat_cidade = "Não foi possível recuperar a latitude"
+        lon_cidade = "Não foi possível recuperar a longitude"
 
-print (data)
+
+print (response)
+print (lat_cidade)
+print (lon_cidade)
 
