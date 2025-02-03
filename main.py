@@ -39,25 +39,33 @@ def translate_countryname(country):
                         return linha[0]
                     except Exception as error:
                         return f"Erro ao traduzir nome do país: {error}"
+def request_location(cidade, pais):
+    global api_key
+    pais = str(translate_countryname(pais))
+    c_code = get_countrycode(countrycode, pais)
+    try:
+        response = requests.get(f"http://api.openweathermap.org/geo/1.0/direct?q={cidade},{c_code}&limit=1&appid={api_key}").json()
+        if isinstance(response, list) and len(response) > 0:
+            lat_cidade = response[0]["lat"]
+            lon_cidade = response[0]["lon"]
+            return lat_cidade, lon_cidade
+    except Exception as error:
+        return f"Erro ao fazer a requisição de latitude e longitude: {error}"
+def request_Weather(lat, lon):
+    global api_key
+    try:
+        weather = requests.get(f"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={api_key}").json()
+        return weather
+    except Exception as error:
+        return f"Erro ao fazer a requisição do clima: {error}"
 
-#apenas testes
+
+
+
 org_countrycode()
 cidade = input("Insira o nome da cidade que deseja saber o clima: ")
 pais = input("Insira o pais dessa cidade: ")
-pais = str(translate_countryname(pais))
-c_code = get_countrycode(countrycode, pais)
-response = requests.get(f"http://api.openweathermap.org/geo/1.0/direct?q={cidade},{c_code}&limit=1&appid={api_key}").json()
-lat_cidade = "Não foi possível recuperar a latitude"
-lon_cidade = "Não foi possível recuperar a longitude"
-if isinstance(response, list) and len(response) > 0:
-    try:
-        lat_cidade = response[0]["lat"]
-        lon_cidade = response[0]["lon"]
-    except Exception as error:
-        lat_cidade = "Não foi possível recuperar a latitude"
-        lon_cidade = "Não foi possível recuperar a longitude"
-print (response)
-print (lat_cidade)
-print (lon_cidade)
-weather = requests.get(f"https://api.openweathermap.org/data/2.5/weather?lat={lat_cidade}&lon={lon_cidade}&appid={api_key}").json()
+lat_cidade, lon_cidade = request_location(cidade, pais)
+weather = request_Weather(lat_cidade, lon_cidade)
+
 print(weather)
