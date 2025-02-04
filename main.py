@@ -51,7 +51,7 @@ def request_location(cidade, pais):
             return lat_cidade, lon_cidade
     except Exception as error:
         return f"Erro ao fazer a requisição de latitude e longitude: {error}"
-def request_Weather(lat, lon):
+def request_weather(lat, lon):
     global api_key
     try:
         weather = requests.get(f"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={api_key}").json()
@@ -59,13 +59,26 @@ def request_Weather(lat, lon):
     except Exception as error:
         return f"Erro ao fazer a requisição do clima: {error}"
 
+def exibit_weather(response):
+    print(f"Nome da cidade: {response["name"]}")
 
 
 
+
+
+
+
+
+
+
+
+
+#testes
 org_countrycode()
 cidade = input("Insira o nome da cidade que deseja saber o clima: ")
 pais = input("Insira o pais dessa cidade: ")
 lat_cidade, lon_cidade = request_location(cidade, pais)
-weather = request_Weather(lat_cidade, lon_cidade)
+weather = request_weather(lat_cidade, lon_cidade)
 
-print(weather)
+print(weather, "\n\n\n")
+exibit_weather(weather)
