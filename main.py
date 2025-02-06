@@ -1,5 +1,6 @@
 import requests
 import csv
+import flask
 
 api_key = "b5f546a581ec7e5675a954a64b4e5ddb"
 countrycode = {}
@@ -25,17 +26,19 @@ def get_countrycode(countrycode, country):
     #tratamento de erro em pegar um código de país
     country = country.lower()
     try:
+        print(countrycode[country])
         return countrycode[country]
     except Exception as error :
         return f"Erro ao buscar código do país: {error}"
 def translate_countryname(country):
 
-    with open("countrycodes.csv", newline="", encoding="utf-8") as arquivo_csv:
-        leitor = csv.reader(arquivo_csv)
+    with open("countrynames.csv", newline="", encoding="utf-8") as arquivo_csv2:
+        leitor = csv.reader(arquivo_csv2, delimiter=";")
         for linha in leitor:
             if len(linha) >= 2:
-                if linha[1] == country:
+                if linha[1].lower() == country.lower():
                     try:
+                        print (linha[0])
                         return linha[0]
                     except Exception as error:
                         return f"Erro ao traduzir nome do país: {error}"
@@ -54,31 +57,35 @@ def request_location(cidade, pais):
 def request_weather(lat, lon):
     global api_key
     try:
-        weather = requests.get(f"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={api_key}").json()
+        weather = requests.get(f"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={api_key}&lang=pt_br").json()
         return weather
     except Exception as error:
         return f"Erro ao fazer a requisição do clima: {error}"
-
 def exibit_weather(response):
     print(f"Nome da cidade: {response["name"]}")
 
-
-
-
-
-
-
-
-
-
-
-
 #testes
-org_countrycode()
+@app.route("/weather", methods=["GET"])
+def response_weather(cidade, pais):
+    try:
+        lat_cidade, lon_cidade = request_location(cidade, pais)
+        weather = request_weather(lat_cidade, lon_cidade)
+        return flask.jsonify(weather)
+    except Exception as error:
+        return flask.jsonify({"error": str(error)})
+
+
 cidade = input("Insira o nome da cidade que deseja saber o clima: ")
 pais = input("Insira o pais dessa cidade: ")
-lat_cidade, lon_cidade = request_location(cidade, pais)
-weather = request_weather(lat_cidade, lon_cidade)
+
 
 print(weather, "\n\n\n")
 exibit_weather(weather)
+
+
+
+org_countrycode()
+app = Flask(__name__)
+
+
+
