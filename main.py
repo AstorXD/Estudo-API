@@ -4,6 +4,7 @@ import flask
 
 api_key = "b5f546a581ec7e5675a954a64b4e5ddb"
 countrycode = {}
+app = flask.Flask(__name__)
 
 def org_countrycode():
 
@@ -61,31 +62,30 @@ def request_weather(lat, lon):
         return weather
     except Exception as error:
         return f"Erro ao fazer a requisição do clima: {error}"
-def exibit_weather(response):
-    print(f"Nome da cidade: {response["name"]}")
 
+org_countrycode()
 #testes
 @app.route("/weather", methods=["GET"])
-def response_weather(cidade, pais):
+def response_weather():
+    cidade = flask.request.args.get('cidade')
+    pais = flask.request.args.get('pais')
+    if cidade is None:
+        return flask.jsonify({"error": "Cidade é uma informação obrigatória!"}), 400
+    if pais is None:
+        pais = ""
     try:
         lat_cidade, lon_cidade = request_location(cidade, pais)
         weather = request_weather(lat_cidade, lon_cidade)
         return flask.jsonify(weather)
     except Exception as error:
-        return flask.jsonify({"error": str(error)})
-
-
-cidade = input("Insira o nome da cidade que deseja saber o clima: ")
-pais = input("Insira o pais dessa cidade: ")
-
-
-print(weather, "\n\n\n")
-exibit_weather(weather)
+        return flask.jsonify({"error": str(error)}), 400
+if __name__ == "__main__":
+    app.run(debug=True, port=8080)
 
 
 
-org_countrycode()
-app = Flask(__name__)
+
+
 
 
 
