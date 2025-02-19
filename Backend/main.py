@@ -1,10 +1,12 @@
 import requests
 import csv
 import flask
+from flask_cors import CORS
 
 api_key = "b5f546a581ec7e5675a954a64b4e5ddb"
 countrycode = {}
 app = flask.Flask(__name__)
+CORS(app, origins="http://127.0.0.1:5500")
 
 def org_countrycode():
 
@@ -12,7 +14,7 @@ def org_countrycode():
     global countrycode
 
     #abre o arquivo, utilizando with para que seja fechado logo depois de recuperar os dados
-    with open("countrycodes.csv", newline="", encoding="utf-8") as arquivo_csv:
+    with open("Backend/countrycodes.csv", newline="", encoding="utf-8") as arquivo_csv:
         leitor = csv.reader(arquivo_csv)
         for linha in leitor:
             #garante que terá 3 colunas no mínimo
@@ -33,7 +35,7 @@ def get_countrycode(countrycode, country):
         return f"Erro ao buscar código do país: {error}"
 def translate_countryname(country):
 
-    with open("countrynames.csv", newline="", encoding="utf-8") as arquivo_csv2:
+    with open("Backend/countrynames.csv", newline="", encoding="utf-8") as arquivo_csv2:
         leitor = csv.reader(arquivo_csv2, delimiter=";")
         for linha in leitor:
             if len(linha) >= 2:

@@ -7,15 +7,16 @@
     <title>Weather</title>
 </head>
 <body>
-    <div class="container">
+    <div id="maincontainer" class="container">
         <img class="mainicon" src="../images/mainicon.png" alt="Ícone nuvem">
         <div class="formcontainer">
-            <form class="form" action="script.js" method="post">
-                <input class="textholder" id="country" type="text" name="city" placeholder="Digite o nome da cidade">
-                <input class="textholder" id="country" type="text" name="country" placeholder="Digite o nome do país">
+            <form id="forms" class="form" action="script.js" method="post">
+                <input class="textholder" id="city" type="text" name="city" placeholder="Cidade">
+                <input class="textholder" id="country" type="text" name="country" placeholder="País">
                 <button class="button" type="submit">Buscar</button>
             </form>
         </div>
     </div>
+    <script src="script.js"></script>
 </body>
 </html>
