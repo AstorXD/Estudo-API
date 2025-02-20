@@ -27,6 +27,16 @@ body{
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
 }
 
+.container.active{
+    width: 60%;
+    min-width: 400px;
+    animation: expandir 1s;
+}
+
+.container:not(.active) {
+    animation: retrair 1s;
+}
+
 .mainicon{
     width: 100px;
     height: 100px;
@@ -103,26 +113,6 @@ body{
     transition: box-shadow 0.1s;
 }
 
-.container.active{
-    position: absolute;
-    transform: translate(-50%, -50%);
-    top: 50%;
-    left: 50%;
-    width: 60%;
-    min-width: 400px;
-    height: 80%;
-    min-height: 500px;
-    background-color: hwb(0 39% 61% / 0.2);
-    border-radius: 10%;
-    border: 2px solid #bbbbbb;
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
-    animation: expandir 1s;
-}
-
-.container:not(.active) {
-    animation: retrair 1s;
-}
-
 @keyframes expandir{
     0%{
         width: 26%;
@@ -153,6 +143,17 @@ body{
     100%{
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+@keyframes subir{
+    0%{
+        opacity: 1;
+        transform: translateY(0);
+    }
+    100%{
+        opacity: 0;
+        transform: translateY(-100%);
     }
 }
 

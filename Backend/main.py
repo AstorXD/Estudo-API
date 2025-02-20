@@ -5,14 +5,14 @@ from flask_cors import CORS
 import waitress
 
 api_key = "b5f546a581ec7e5675a954a64b4e5ddb"
-countrycode = {}
+countrycodelist = {}
 app = flask.Flask(__name__)
 CORS(app, origins="http://127.0.0.1:5500")
 
 def org_countrycode():
 
     #define que está utilizando a variável global
-    global countrycode
+    global countrycodelist
 
     #abre o arquivo, utilizando with para que seja fechado logo depois de recuperar os dados
     with open("Backend/countrycodes.csv", newline="", encoding="utf-8") as arquivo_csv:
@@ -25,15 +25,15 @@ def org_countrycode():
                 valor = linha[2]
                 if len(linha[1]) <= 2:
                     valor = linha[1]
-                countrycode[chave.lower()] = valor
-def get_countrycode(countrycode, country):
+                countrycodelist[chave.lower()] = valor
+def get_countrycode(countrycodelist, country):
     #tratamento de erro em pegar um código de país
     if country is None:
         print("Erro ao buscar código do país:!")
         return None
     country = country.lower()
     try:
-        return countrycode[country]
+        return countrycodelist[country]
     except Exception as error :
         print("Erro ao buscar código do país!")
         return None
@@ -50,10 +50,10 @@ def translate_countryname(country):
 def request_location(cidade, pais):
     global api_key
     pais = str(translate_countryname(pais))
-    c_code = get_countrycode(countrycode, pais)
+    print(pais)
+    c_code = get_countrycode(countrycodelist, pais)
     try:
         response = requests.get(f"http://api.openweathermap.org/geo/1.0/direct?q={cidade},{c_code}&limit=1&appid={api_key}").json()
-        print(response)
         if not response:
             print("Nenhum resultado encontrado")
             return None, None
@@ -66,10 +66,10 @@ def request_location(cidade, pais):
 def request_weather(lat, lon):
     global api_key
     try:
-        weather = requests.get(f"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={api_key}&lang=pt_br")
-        if weather == None:
+        weather = requests.get(f"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={api_key}&lang=pt_br").json()
+        if not weather:
             return flask.jsonify({"error": "Nenhum resultado encontrado para essas informações."}), 404
-        return weather.json()
+        return weather
     except Exception as error:
         return f"Erro ao fazer a requisição do clima: {error}"
 
