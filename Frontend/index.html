@@ -8,12 +8,12 @@
 </head>
 <body>
     <div id="maincontainer" class="container">
-        <img class="mainicon" src="../images/mainicon.png" alt="Ícone nuvem">
-        <div class="formcontainer">
+        <img id="mainimg" class="mainicon active" src="../images/mainicon.png" alt="Ícone nuvem">
+        <div id="formcontainer" class="formcontainer">
             <form id="forms" class="form" action="script.js" method="post">
-                <input class="textholder" id="city" type="text" name="city" placeholder="Cidade">
-                <input class="textholder" id="country" type="text" name="country" placeholder="País">
-                <button class="button" type="submit">Buscar</button>
+                <input id="city" class="textholder active" type="text" name="city" placeholder="Cidade">
+                <input id="country" class="textholder active" type="text" name="country" placeholder="País">
+                <button id="busca" class="button active" type="submit">Buscar</button>
             </form>
         </div>
     </div>

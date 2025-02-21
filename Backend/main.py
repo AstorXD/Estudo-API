@@ -88,6 +88,7 @@ def response_weather():
         weather = request_weather(lat_cidade, lon_cidade)
         if weather is None:
             return flask.jsonify({"error": "Nenhum resultado encontrado para essas informações."}), 404
+        print("Solicitação respondida")
         return flask.jsonify(weather)
     except Exception as error:
         return flask.jsonify({"error": str(error)}), 400

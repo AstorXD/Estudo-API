@@ -49,6 +49,15 @@ body{
     animation: aparecer 1s;
 }
 
+.mainicon.active{
+    animation: aparecer 1s;
+}
+
+.mainicon:not(.active){
+    opacity: 0;
+    animation: desaparecer 1s;
+}
+
 .formcontainer{
    display: flex;
    justify-content: center;
@@ -57,7 +66,7 @@ body{
 }
 
 .form{
-    display: flex;
+    display: inherit;
     width: 300px;
     flex-direction: column;
     align-items: center;
@@ -80,6 +89,15 @@ body{
     animation: descer 1s;
 }
 
+.textholder.active{
+    animation: descer 1s;;
+}
+
+.textholder:not(.active){
+    opacity: 0;
+    animation: subir 1s;
+}
+
 .textholder::placeholder {
     color: #969696;
     opacity: 1;
@@ -99,6 +117,15 @@ body{
     cursor: pointer;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.15);
     animation: descer 1s;
+}
+
+.button.active{
+    animation: descer 1s;
+}
+
+.button:not(.active){
+    opacity: 0;
+    animation: subir 1s;
 }
 
 .button:hover{
@@ -164,5 +191,14 @@ body{
     }
     100%{
         opacity: 1;
+    }
+}
+
+@keyframes desaparecer{
+    0%{
+        opacity: 1;
+    }
+    100%{
+        opacity: 0;
     }
 }
