@@ -140,6 +140,29 @@ body{
     transition: box-shadow 0.1s;
 }
 
+.refresh.active{
+    background-image: url(../images/refreshicon.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    right: 50px;
+    bottom: 50px;
+    opacity: 0.3;
+}
+
+.refresh.active:hover{
+    animation: refresh 1s;
+    cursor: pointer;
+}
+
+.refresh::not(.active){
+    opacity: 0;
+    animation: desaparecer 2s;
+}
+
 @keyframes expandir{
     0%{
         width: 26%;
@@ -200,5 +223,14 @@ body{
     }
     100%{
         opacity: 0;
+    }
+}
+
+@keyframes refresh{
+    0%{
+        transform: rotate(0deg);
+    }
+    100%{
+        transform: rotate(360deg);
     }
 }

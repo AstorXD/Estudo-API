@@ -90,8 +90,8 @@ def response_weather():
             return flask.jsonify({"error": "Nenhum resultado encontrado para essas informações."}), 404
         print("Solicitação respondida")
         return flask.jsonify(weather)
-    except Exception as error:
-        return flask.jsonify({"error": str(error)}), 400
+    except Exception as Error:
+        return flask.jsonify({"error": str(Error)}), 400
 
 if __name__ == "__main__":
     waitress.serve(app, host="0.0.0.0", port=8080, threads=8)
