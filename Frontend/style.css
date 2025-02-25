@@ -234,3 +234,29 @@ body{
         transform: rotate(360deg);
     }
 }
+
+.weathercontainer.active{
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+.cityname{
+    font-family: fantasy;
+    font-size: 80px;
+    color: #757575;
+    display: block;
+    position: absolute;
+    top: 30px;
+    left: 50px;
+}
+
+.countrycode{
+    font-family: fantasy;
+    font-size: 80px;
+    color: #757575;
+    display: block;
+    position: absolute;
+    top: 30px;
+    right: 50px;
+}
