@@ -63,16 +63,18 @@ function layoutresultado() {
     city: cityplaceholder,
     country: countryplaceholder,
     mainimg: mainimg,
-    formcontainer: formcontainer
+    formcontainer: formcontainer,
+    weathercontainer: weathercontainer
   } = Object.fromEntries(
-    ['maincontainer', 'busca', 'city', 'country', 'mainimg', 'formcontainer']
+    ['maincontainer', 'busca', 'city', 'country', 'mainimg', 'formcontainer', 'weathercontainer']
       .map(id => [id, document.getElementById(id)])
   );
 
-  [container, refresh].forEach(id => (id).classList.add("active"));
+  [container, refresh, weathercontainer].forEach(id => (id).classList.add("active"));
   [botaobusca, cityplaceholder, countryplaceholder, mainimg].forEach(id => (id).classList.remove("active"));
   setTimeout(() => {
     formcontainer.style.display = "none";
+    weathercontainer.style.display = "flex";
   }, 1000);
 }
 
@@ -84,14 +86,20 @@ function layoutbusca() {
     city: cityplaceholder,
     country: countryplaceholder,
     mainimg: mainimg,
-    formcontainer: formcontainer
+    formcontainer: formcontainer,
+    weathercontainer: weathercontainer
   } = Object.fromEntries(
-    ['maincontainer', 'busca', 'city', 'country', 'mainimg', 'formcontainer']
+    ['maincontainer', 'busca', 'city', 'country', 'mainimg', 'formcontainer', 'weathercontainer']
       .map(id => [id, document.getElementById(id)])
   );
+
   setTimeout(() => {
-    [container, refresh].forEach(id => (id).classList.remove("active"));
+    [container, refresh, weathercontainer].forEach(id => (id).classList.remove("active"));
     [botaobusca, cityplaceholder, countryplaceholder, mainimg].forEach(id => (id).classList.add("active"));
   });
-  formcontainer.style.display = "flex";
+  setTimeout(() => {
+    weathercontainer.style.display = "none";
+    formcontainer.style.display = "flex";
+  }, 500);
 }
+
