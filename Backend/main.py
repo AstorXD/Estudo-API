@@ -7,7 +7,7 @@ import waitress
 api_key = "b5f546a581ec7e5675a954a64b4e5ddb"
 countrycodelist = {}
 app = flask.Flask(__name__)
-CORS(app, origins="http://127.0.0.1:5500")
+CORS(app)
 
 def org_countrycode():
 

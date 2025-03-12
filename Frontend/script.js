@@ -38,22 +38,16 @@ function getweather(country, city) {
 
 function printdata(apidata) {
   layoutresultado();
-
-  //todo
-
   
-  console.log(apidata.name); //nome da cidade
-  console.log(apidata.weather[0].main); //nome do clima
-  console.log(apidata.weather[0].description); //desc do clima
-  console.log(Number(parseFloat(apidata.main.temp - 273.15).toFixed(2))); // temperatura em Cº arredondado para 2 casas decimais
-  console.log(apidata.wind.speed); // velocidade do vento em m/s
-  console.log(apidata.sys.country); // país
-  console.log(
-    Number(parseFloat(apidata.main.feels_like - 273.15).toFixed(2))
-  ); //sensação térmica
-  console.log(apidata.main.humidity); // umidade relativa
-  console.log(apidata.clouds.all); //porcentagem de nuvens
-  
+  document.getElementById("cityname").textContent = apidata.name; //nome da cidade
+  document.getElementById("countrycode").textContent = apidata.sys.country; //código do país
+  document.getElementById("weathername").textContent = apidata.weather[0].main; //nome do clima
+  document.getElementById("description").textContent = apidata.weather[0].description; //desc do clima
+  document.getElementById("temp").textContent = Number(parseFloat(apidata.main.temp - 273.15).toFixed(1))+"°C"; // temperatura em Cº arredondado para 1 casa decimal
+  document.getElementById("feelslike").textContent = Number(parseFloat(apidata.main.feels_like - 273.15).toFixed(1))+"°C"; //sensação térmica em Cº arredondado para 1 casa decimal
+  document.getElementById("humidity").textContent = apidata.main.humidity+"%";  // umidade relativa 
+  document.getElementById("windspeed").textContent = apidata.wind.speed+"m/s"; // velocidade do vento em m/s
+  document.getElementById("cloudpercent").textContent = apidata.clouds.all+"%"; //porcentagem de nuvens
 }
 
 function layoutresultado() {
@@ -100,6 +94,6 @@ function layoutbusca() {
   setTimeout(() => {
     weathercontainer.style.display = "none";
     formcontainer.style.display = "flex";
-  }, 500);
+  });
 }
 

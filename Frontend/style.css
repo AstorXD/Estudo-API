@@ -154,7 +154,7 @@ body{
 }
 
 .refresh.active:hover{
-    animation: refresh 1s;
+    animation: refresh 1.5s infinite;
     cursor: pointer;
 }
 
@@ -241,6 +241,9 @@ body{
     0%{
         transform: rotate(0deg);
     }
+    50%{
+        transform: rotate(360deg);
+    }
     100%{
         transform: rotate(360deg);
     }
@@ -253,15 +256,11 @@ body{
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-
+    overflow: hidden;
 }
 
 .weathercontainer.active{
     animation: aparecer 1s;
-}
-
-.weathercontainer::not(.active){
-    animation: subir 1s;
 }
 
 .miniweathercontainer::not(.active){
