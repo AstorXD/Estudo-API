@@ -292,6 +292,32 @@ body{
     animation: descer2 1s backwards;
 }
 
+.infocontainer{
+    width: 80%;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.infotitle{
+    font-family: Georgia ;
+    font-size: 25px;
+    color: #757575;
+    display: block;
+    text-align: center;
+}
+
+.icon{
+    width: 150px;
+    height: 150px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
 .cityname{
     font-family: fantasy;
     font-size: 80px;
@@ -311,3 +337,5 @@ body{
     top: 30px;
     right: 50px;
 }
+
+
