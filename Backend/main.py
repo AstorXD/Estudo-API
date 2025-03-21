@@ -15,7 +15,7 @@ def org_countrycode():
     global countrycodelist
 
     #abre o arquivo, utilizando with para que seja fechado logo depois de recuperar os dados
-    with open("Backend/countrycodes.csv", newline="", encoding="utf-8") as arquivo_csv:
+    with open("./countrycodes.csv", newline="", encoding="utf-8") as arquivo_csv:
         leitor = csv.reader(arquivo_csv)
         for linha in leitor:
             #garante que terá 3 colunas no mínimo
@@ -39,7 +39,7 @@ def get_countrycode(countrycodelist, country):
         return None
 def translate_countryname(country):
 
-    with open("Backend/countrynames.csv", newline="", encoding="utf-8") as arquivo_csv2:
+    with open("./countrynames.csv", newline="", encoding="utf-8") as arquivo_csv2:
         leitor = csv.reader(arquivo_csv2, delimiter=";")
         for linha in leitor:
             if len(linha) >= 2:
