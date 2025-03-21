@@ -18,7 +18,7 @@ forms.addEventListener("submit", function (event) {
 });
 
 function getweather(country, city) {
-  fetch(`http://127.0.0.1:8080/weather?cidade=${city}&pais=${country}`)
+  fetch(`https://estudo-api-aa4y.onrender.com/weather?cidade=${city}&pais=${country}`)
     .then(async (response) => {
         if (!response.ok) {
             const errordata = await response.json();
