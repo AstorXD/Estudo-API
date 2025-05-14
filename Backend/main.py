@@ -9,7 +9,7 @@ api_key = "b5f546a581ec7e5675a954a64b4e5ddb"
 countrycodelist = {}
 app = flask.Flask(__name__)
 CORS(app)
-translate = GoogleTranslator(source= "en ", target= " pt")
+translate = GoogleTranslator(source= "en", target= "pt")
 
 def org_countrycode():
 
