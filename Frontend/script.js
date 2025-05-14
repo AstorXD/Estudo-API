@@ -38,8 +38,12 @@ function getweather(country, city) {
 
 function printdata(apidata) {
   layoutresultado();
-  
-  document.getElementById("cityname").textContent = apidata.name; //nome da cidade
+  if(apidata.name == "Xique Xique"){
+    const emoji = String.fromCodePoint(0x1F4CD);
+    document.getElementById("cityname").textContent = emoji + ' Xique Xique - BA';
+  }else{
+    document.getElementById("cityname").textContent = apidata.name; //nome da cidade
+  } 
   document.getElementById("countrycode").textContent = apidata.sys.country; //código do país
   document.getElementById("weathername").textContent = apidata.weather[0].main; //nome do clima
   document.getElementById("description").textContent = apidata.weather[0].description; //desc do clima
