@@ -3,11 +3,13 @@ import csv
 import flask
 from flask_cors import CORS
 import waitress
+from deep_translator import GoogleTranslator
 
 api_key = "b5f546a581ec7e5675a954a64b4e5ddb"
 countrycodelist = {}
 app = flask.Flask(__name__)
 CORS(app)
+translate = GoogleTranslator(source= "en ", target= " pt")
 
 def org_countrycode():
 
@@ -67,11 +69,15 @@ def request_weather(lat, lon):
     global api_key
     try:
         weather = requests.get(f"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={api_key}&lang=pt_br").json()
+
         if not weather:
             return flask.jsonify({"error": "Nenhum resultado encontrado para essas informações."}), 404
         return weather
     except Exception as error:
         return f"Erro ao fazer a requisição do clima: {error}"
+
+def translate_weather(weather):
+    weather.weather[0].main = translate.translate(weather.weather[0].main)
 
 org_countrycode()
 
@@ -88,6 +94,7 @@ def response_weather():
         weather = request_weather(lat_cidade, lon_cidade)
         if weather is None:
             return flask.jsonify({"error": "Nenhum resultado encontrado para essas informações."}), 404
+        translate_weather(weather)
         print("Solicitação respondida")
         return flask.jsonify(weather)
     except Exception as Error:
