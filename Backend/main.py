@@ -77,7 +77,7 @@ def request_weather(lat, lon):
         return f"Erro ao fazer a requisição do clima: {error}"
 
 def translate_weather(weather):
-    weather.weather[0].main = translate.translate(weather.weather[0].main)
+    weather['weather'][0]['main'] = translate.translate(weather['weather'][0]['main'])
 
 org_countrycode()
 
